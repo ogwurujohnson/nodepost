@@ -1,0 +1,60 @@
+{
+  "name": "tpaddybook",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint ./ --fix",
+    "build": "rimraf dist/ && babel ./ -d dist/ --ignore node_modules --copy-files",
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "dev-start": "babel-watch index.js",
+    "test": "mocha --recursive",
+    "test-travis": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec --full-trace --trace ./test/controllers/*",
+    "create": "node ./models/dbModel createTables",
+    "migration": "node ./models/dbModel dropTables && node ./models/dbModel createTables && node ./models/dbModel seed"
+  },
+  "engines": {
+    "node": "8.11.3",
+    "npm": "6.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ogwurujohnson/TpaddyBook.git"
+  },
+  "author": "ogwurujohnson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ogwurujohnson/TpaddyBook/issues"
+  },
+  "homepage": "https://github.com/ogwurujohnson/TpaddyBook#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.0",
+    "bluebird": "^3.5.2",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "joi": "^13.7.0",
+    "jsonwebtoken": "^8.3.0",
+    "make-runnable": "^1.3.6",
+    "morgan": "^1.9.1",
+    "nodemailer": "^4.6.8",
+    "pg": "^7.4.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-watch": "^2.0.7",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
+    "coveralls": "^3.0.2",
+    "eslint": "^5.6.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^5.2.0",
+    "rimraf": "^2.6.2"
+  }
+}
