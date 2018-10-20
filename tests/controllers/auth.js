@@ -23,7 +23,7 @@ describe('Authentication Test Suite', () => {
         role: 'admin',
       }
       chai.request(app)
-        .post('/api/v1/signup')
+        .post('/api/v1/auth/signup')
         .send(body)
         .end((err, res) => {
           if (err) done(err);
@@ -42,7 +42,7 @@ describe('Authentication Test Suite', () => {
         role: 'admin',
       }
       chai.request(app)
-        .post('/api/v1/signup')
+        .post('/api/v1/auth/signup')
         .send(body)
         .end((err, res) => {
           if (err) done(err);
@@ -52,5 +52,27 @@ describe('Authentication Test Suite', () => {
         });
     });
   });
+
+
+  describe('Login Test Suite', () => {
+    it('should have status 200 and be an object with property token', (done) => {
+      const body = { 
+        email: 'ogwurujohnson@gmail.com',
+        password: 'johnsons_password',
+      }
+      chai.request(app)
+        .post('/api/v1/auth/login')
+        .send(body)
+        .end((err, res) => {
+          if (err) done(err);
+          res.body.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('user');
+          res.body.user.should.have.property('token');
+          res.body.user.should.have.property('userId');
+          res.body.user.should.have.property('firstname');
+        })
+    })
+  })
 });
 
