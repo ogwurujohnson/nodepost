@@ -10,8 +10,11 @@ chai.should();
 
 chai.use(chaiHttp);
 
+let userId;
+let verificationCode;
 
-describe('Authentication Test Suite', () => {
+
+describe('Authentication TEST SUITE', () => {
   describe('Signup Test Suite', () => {
     it('should return status 200', (done) => {
       const body = {
@@ -76,3 +79,41 @@ describe('Authentication Test Suite', () => {
   })
 });
 
+
+describe('Verification and Forgot Password TEST SUITE', () => {
+  describe('Verification Test Suite', () => {
+    before((done) => {
+      const body = {
+        title: 'Mr/Mrs',
+        firstName: 'Johnson',
+        surName: 'Ogwuru',
+        email: 'ogwurujohnson@gmail.com',
+        password: 'johnsons_password',
+        role: 'admin',
+      }
+      chai.request(app)
+        .post('/api/v1/auth/signup')
+        .send(body)
+        .end((err, res) => {
+          if (err) done(err)
+          userId = res.body.user.id;
+          VerificationCode = res.body.user.activationcode;
+          done();
+        });
+    });
+
+    it('should return status code 201', (done) => {
+      const body = {
+        userId
+      }
+      chai.request(app)
+        .put(`/api/v1/verify/${verificationCode}`)
+        .send(body)
+        .end((err, res) => {
+          if (err) done(err);
+          res.should.have.status(200);
+          done();
+        })
+    })
+  });
+});

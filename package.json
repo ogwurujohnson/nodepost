@@ -1,5 +1,5 @@
 {
-  "name": "tpaddybook",
+  "name": "node-post-hack",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -20,14 +20,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ogwurujohnson/TpaddyBook.git"
+    "url": "git+https://github.com/ogwurujohnson/nodepost--Hack.git"
   },
   "author": "ogwurujohnson",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ogwurujohnson/TpaddyBook/issues"
+    "url": "https://github.com/ogwurujohnson/nodepost--Hack/issues"
   },
-  "homepage": "https://github.com/ogwurujohnson/TpaddyBook#readme",
+  "homepage": "https://github.com/ogwurujohnson/nodepost--Hack#readme",
   "dependencies": {
     "bcrypt": "^3.0.0",
     "bluebird": "^3.5.2",
