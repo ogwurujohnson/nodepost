@@ -62,7 +62,7 @@ exports.signUp = (req, res) => {
                     message: 'Invalid request data',
                   });
                 } else {
-                  const query = 'INSERT INTO users(title, firstname, lastname, email, password, role, activationCode, isActivated) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *';
+                  const query = 'INSERT INTO users(title, firstname, surName, email, password, role, activationCode, isActivated) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *';
                   const values = [title, firstName, surName, email, hashedPassword, role, activationCode, 'false'];
                   insertClient.query(query, values, (error, result) => {
                     insertDone();
@@ -109,7 +109,7 @@ exports.login = (req, res) => {
         const hash = checkRes.rows[0].password;
         const userEmail = checkRes.rows[0].email;
         const userId = checkRes.rows[0].id;
-        const { firstname, lastname, role } = checkRes.rows[0];
+        const { firstname, surName, role } = checkRes.rows[0];
         bcrypt.compare(password, hash, (bcryptErr, bcryptRes) => {
           if (bcryptRes) {
             const data = {
@@ -124,7 +124,7 @@ exports.login = (req, res) => {
                   token,
                   userId,
                   firstname,
-                  lastname,
+                  surName,
                   role,
                 },
                 
