@@ -10,7 +10,7 @@ let myDatabase;
 if (process.env.NODE_ENV === 'development') {
   myDatabase = process.env.DEVPOSTGRES_DB;
 } else if (process.env.NODE_ENV === 'test') {
-  //change on deployment and testing //myDatabase = 'travis';]
+  // change on deployment and testing //myDatabase = 'travis';]
   myDatabase = process.env.TESTPOSTGRES_DB;
 } else if (process.env.NODE_ENV === 'production') {
   myDatabase = process.env.POSTGRES_DB;
@@ -40,17 +40,16 @@ const createTables = () => {
       users(
         id SERIAL PRIMARY KEY,
         title VARCHAR(128) NOT NULL,
-        firstname VARCHAR(128) NOT NULL,
-        lastname VARCHAR(128) NOT NULL,
+        firstName VARCHAR(128) NOT NULL,
+        surName VARCHAR(128) NOT NULL,
         email VARCHAR(128) NOT NULL,
         password VARCHAR(128) NOT NULL,
         role VARCHAR(128) NOT NULL,
         activationCode varchar(128) NOT NULL,
         isActivated VARCHAR(128) NOT NULL,
-        created_date TIMESTAMP,
-        modified_date TIMESTAMP
+        created_date TIMESTAMP default now(),
+        modified_date TIMESTAMP default now()
       )`;
-  
   pool.query(userTable)
     .then((res) => {
       console.log(res);
@@ -60,11 +59,10 @@ const createTables = () => {
       console.log(err);
       pool.end();
     });
-  
 };
 
- const seed = () => {
-  const userQuery = 'INSERT INTO users (title, firstName, surName, email, password, role) VALUES ($1,$2,$3,$4,$5) RETURNING *';
+const seed = () => {
+  const userQuery = 'INSERT INTO users (title, firstName, surName, email, password, activationcode, isactivated, role) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *';
 
   pool.connect((err, client, done) => {
     // check if user exists before inserting
@@ -75,11 +73,11 @@ const createTables = () => {
       } else {
         bcrypt.hash('test', 10, (err, hash) => {
           if (err) {
-            res.status(400).send(err);
+            console.log(err);
           } else {
             // insert into table USER
             pool.connect((err, client, done) => {
-              const userValues = ['Mr/Mrs','john', 'doe', 'test@gmail.com', hash, 'admin'];
+              const userValues = ['Mr/Mrs', 'john', 'doe', 'test@gmail.com', hash, hash, 'false', 'admin'];
               client.query(userQuery, userValues, (error, result) => {
                 if (error) {
                   console.log(error);
