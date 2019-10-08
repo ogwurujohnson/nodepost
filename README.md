@@ -2,11 +2,6 @@
 
 A Boilerplate for NodeJs and Postgres Applications
 
-
-Create DB, both for test and development and specify their name in your .env file
-
-Update .env file with appropriate records
-
 ## Implemented Features
 * Users can create an account and login.
 * Users can verify their account via their email.
@@ -33,7 +28,7 @@ Update .env file with appropriate records
 * Install [NodeJs](https://nodejs.org/en/download/) and [PostgreSQL](https://www.postgresql.org/download/) on your computer.
 * Clone this repository using `git clone https://github.com/ogwurujohnson/nodepost--Hack.git`.
 * Set up your environment variables in a `.env` file.
-* Create production, development and test db's
+* Create production, development and test db's. specify their names in your env file
 * Run `npm install` to install all dependencies.
 * Run `npm run migration` to run DB migrations.
 * Run `npm run dev` to start the server.
